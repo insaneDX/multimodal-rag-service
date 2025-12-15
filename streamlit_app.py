@@ -13,6 +13,18 @@ import threading
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
+# ---- Configuration ----
+API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
+API_V1_URL = f"{API_BASE_URL}/api/v1"
+
+# ---- Page Configuration ----
+st.set_page_config(
+    page_title="Multimodal RAG System",
+    page_icon="🔍",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # For streamlit deployment, we run the FastAPI app in a background thread
 from src.app import app as fastapi_app
 
@@ -35,17 +47,7 @@ def start_backend():
 # start backend on first access
 start_backend()
 
-# ---- Configuration ----
-API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
-API_V1_URL = f"{API_BASE_URL}/api/v1"
 
-# ---- Page Configuration ----
-st.set_page_config(
-    page_title="Multimodal RAG System",
-    page_icon="🔍",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
 
 # ---- Custom CSS ----
 st.markdown("""
