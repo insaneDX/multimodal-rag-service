@@ -1,0 +1,23 @@
+# Python / virtual env / cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+
+# pytest
+.pytest_cache/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+
+# Local config / secrets
+.env
+
+# Large data / tmp / model files
+data/
+tmp/
+mlp_projection.pt
+app_logs.log

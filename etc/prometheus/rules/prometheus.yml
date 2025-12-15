@@ -1,0 +1,43 @@
+groups:
+  - name: rag_alerts
+    rules:
+
+      # Alert if retrieval 95th percentile latency above 1.5s over 5m
+      - alert: HighRetrievalLatency
+        expr: histogram_quantile(0.95, sum(rate(rag_retrieval_latency_seconds_bucket[5m])) by (le)) > 1.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High retrieval latency (95th) > 1.5s"
+          description: "Retrieval latency (95th percentile) exceeded 1.5s for more than 2m."
+
+      # Alert if LLM inference 95th percentile latency above 5s
+      - alert: HighLLMLatency
+        expr: histogram_quantile(0.95, sum(rate(rag_llm_latency_seconds_bucket[5m])) by (le)) > 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High LLM latency"
+          description: "LLM inference latency (95th) > 5s."
+
+      # Alert if error rate > 2% over 10m
+      - alert: HighErrorRate
+        expr: increase(rag_query_errors_total[10m]) / increase(rag_query_total[10m]) > 0.02
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High RAG API error rate"
+          description: "Query error rate exceeded 2% in the last 10 minutes."
+
+      # Alert if hallucination rate > 5% (adjust threshold to your domain)
+      - alert: HighHallucinationRate
+        expr: increase(rag_hallucination_total[15m]) / increase(rag_query_total[15m]) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High hallucination rate"
+          description: "Hallucination rate > 5% over last 15m. Investigate model/knowledge base drift."
