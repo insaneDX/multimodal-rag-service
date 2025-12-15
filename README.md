@@ -28,13 +28,13 @@ A production-ready Retrieval-Augmented Generation (RAG) system that supports bot
                                                   └──────────────┘
 ```
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Python 3.8+
 - CUDA-capable GPU (optional, for faster inference)
 - API keys for LLM providers (Groq, OpenAI)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone the Repository
 
@@ -102,7 +102,7 @@ streamlit run ui/streamlit_app.py
 
 Access the UI at `http://localhost:8501`
 
-## 📖 Usage
+## Usage
 
 ### Via Web Interface
 
@@ -139,7 +139,7 @@ curl -X POST "http://localhost:8000/query" \
 curl "http://localhost:8000/api/v1/stats"
 ```
 
-## 🔧 Configuration
+## Configuration
 
 ### Retrieval Modes
 
@@ -153,7 +153,7 @@ curl "http://localhost:8000/api/v1/stats"
 - `use_reranker`: Enable cross-encoder reranking for better relevance
 - `use_dag`: Use DAG-based orchestrator for structured execution
 
-## 📊 Monitoring
+## Monitoring
 
 ### Prometheus Metrics
 
@@ -170,7 +170,7 @@ Metrics are exposed at `http://localhost:8001/metrics`:
 - API Health: `http://localhost:8000/health`
 - Detailed Stats: `http://localhost:8000/api/v1/stats`
 
-## 🧪 Testing
+## Testing
 
 Run the test suite:
 
@@ -184,7 +184,7 @@ Evaluate retrieval performance:
 python tests/retrieval_eval.py --dataset queries.json --k 10
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 multimodal-rag/
@@ -210,7 +210,7 @@ multimodal-rag/
 └── README.md
 ```
 
-## 🔍 Advanced Features
+## Advanced Features
 
 ### Custom Embeddings
 
