@@ -8,9 +8,32 @@ import time
 from pathlib import Path
 from typing import Optional, Dict, Any
 import os
+import threading
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
+
+# For streamlit deployment, we run the FastAPI app in a background thread
+from src.app import app as fastapi_app
+
+def run_backend():
+    import uvicorn
+    uvicorn.run(
+        fastapi_app,
+        host="0.0.0.0",
+        port=8000,
+        log_level="info"
+    )
+
+@st.cache_resource
+def start_backend():
+    thread = threading.Thread(target=run_backend, daemon=True)
+    thread.start()
+    time.sleep(2)
+    return True
+
+# start backend on first access
+start_backend()
 
 # ---- Configuration ----
 API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
